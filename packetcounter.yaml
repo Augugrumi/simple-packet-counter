@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: packetcounter-ingress
+spec:
+  rules:
+  - host: packetcounter.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: w-nodeport-test-wordpress
+          servicePort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: packetcounter
+spec:
+  selector:
+    app: packetcounter
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: http
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: packetcounter
+spec:
+  selector:
+    matchLabels:
+      app: packetcounter
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: packetcounter
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: packetcounter
+          image: polpetta/simple-packet-counter:latest
+          ports:
+            - name: http
+              containerPort: 80
