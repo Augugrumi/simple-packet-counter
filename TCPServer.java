@@ -9,8 +9,9 @@ class TCPServer {
         long counter = 0;
         String contentType="text/html";
         int code=200;
-        ServerSocket welcomeSocket = new ServerSocket(6789);
+        ServerSocket welcomeSocket = new ServerSocket(80);
 
+        System.out.println("Ready to accept incoming packets");
         while (true) {
             Socket connectionSocket = welcomeSocket.accept();
             BufferedReader inFromClient =

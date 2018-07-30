@@ -8,5 +8,5 @@ FROM openjdk:8-jre-alpine
 RUN mkdir -p /srv/
 WORKDIR /srv/
 COPY --from=builder /srv/TCPServer.class /srv/
-EXPOSE 6789
+EXPOSE 80
 ENTRYPOINT [ "java", "TCPServer" ]

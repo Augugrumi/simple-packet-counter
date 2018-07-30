@@ -14,7 +14,7 @@ docker build -t augugrumi/packetcounter .
 
 Run with:
 ```sh
-docker run --rm -p6789:6789 augugrumi/packetcounter
+docker run --rm -p6789:80 augugrumi/packetcounter
 ```
 
 Then open your browser and browse to `localhost:6789`.
